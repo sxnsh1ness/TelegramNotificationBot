@@ -11,11 +11,4 @@ git remote add origin %github_url%
 echo Pushing to GitHub...
 git push -u origin main
 
-echo.
-echo ======================================================
-echo USPISHNO! Teper dodajte sekreti na GitHub:
-echo SSH_HOST = 5.253.188.23
-echo SSH_USER = sxnsh1ness
-echo SSH_PASSWORD = 72EzY7KhScBy
-echo ======================================================
 pause
