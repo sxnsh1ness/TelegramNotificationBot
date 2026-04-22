@@ -1,27 +1,17 @@
 #!/bin/bash
 
 # Configuration
-APP_NAME="TelegramNotificationBot-1.0-SNAPSHOT.jar"
-PID_FILE="bot.pid"
+APP_NAME="LightsMonitorBot-1.0-SNAPSHOT.jar"
+SCREEN_NAME="telegram_bot"
 
-# Kill existing process if running
-if [ -f "$PID_FILE" ]; then
-    PID=$(cat "$PID_FILE")
-    if ps -p $PID > /dev/null; then
-        echo "Stopping existing bot (PID: $PID)..."
-        kill $PID
-        sleep 2
-    fi
-    rm "$PID_FILE"
-fi
-
-# Also kill any leftover java process with the same jar name just in case
+# Kill existing screen session if running
+screen -S "$SCREEN_NAME" -X quit 2>/dev/null
 pkill -f "$APP_NAME"
 
-echo "Starting bot..."
-# Run the bot in background and save PID
-nohup java -jar "$APP_NAME" > bot.log 2>&1 &
-echo $! > "$PID_FILE"
+echo "Starting bot in screen session '$SCREEN_NAME'..."
+# Run the bot inside a detached screen session
+screen -dmS "$SCREEN_NAME" java -jar "$APP_NAME"
 
-echo "Bot started with PID $(cat $PID_FILE)"
-tail -f bot.log
+echo "Bot started! To view logs, run: screen -r $SCREEN_NAME"
+echo "Or check bot.log if the app redirects output there."
+

@@ -28,8 +28,8 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
-        source: "target/TelegramNotificationBot-1.0-SNAPSHOT.jar,start.sh"
-        target: "~/bot-deploy"
+        source: "target/LightsMonitorBot-1.0-SNAPSHOT.jar,start.sh"
+        target: "~/telegram_bot"
         strip_components: 1
 
     - name: Execute remote start script
@@ -39,6 +39,6 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
-          cd ~/bot-deploy
+          cd ~/telegram_bot
           chmod +x start.sh
           ./start.sh
