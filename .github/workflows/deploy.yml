@@ -22,13 +22,19 @@ jobs:
     - name: Build with Maven
       run: mvn clean package -DskipTests
 
+    - name: Prepare deployment
+      run: |
+        mkdir -p deploy
+        cp target/LightsMonitorBot-1.0-SNAPSHOT.jar deploy/
+        cp start.sh deploy/
+
     - name: Copy files to server
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
-        source: "target/LightsMonitorBot-1.0-SNAPSHOT.jar,start.sh"
+        source: "deploy/*"
         target: "~/telegram_bot"
         strip_components: 1
 
