@@ -1,0 +1,6 @@
+target/
+*.db
+.env
+.idea/
+*.log
+*.pid
